@@ -25,3 +25,28 @@ function createLoginTracker(userInfo) {
 module.exports = {
   ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
 };
+function capitalizeWords(input) {
+    if (!input) return "";
+
+    return input
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+}
+
+function filterActiveUsers(users) {
+    if (!Array.isArray(users)) return [];
+
+    return users.filter(user => user.isActive);
+}
+
+function logAction(action, username) {
+    const timestamp = new Date().toISOString();
+    return `User ${username} performed ${action} at ${timestamp}`;
+}
+
+module.exports = {
+    capitalizeWords,
+    filterActiveUsers,
+    logAction
+};

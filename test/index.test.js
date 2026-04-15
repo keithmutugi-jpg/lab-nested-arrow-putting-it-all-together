@@ -43,4 +43,67 @@ const {
       expect(user3Login("password45!")).toBe('Login successful');
     });
   });
-  
+  const { capitalizeWords, filterActiveUsers, logAction } = require("../index");
+
+describe("capitalizeWords", () => {
+    test("capitalizes first letter of each word", () => {
+        expect(capitalizeWords("hello world")).toBe("Hello World");
+    });
+
+    test("handles single word", () => {
+        expect(capitalizeWords("javascript")).toBe("Javascript");
+    });
+
+    test("handles empty string", () => {
+        expect(capitalizeWords("")).toBe("");
+    });
+
+    test("handles multiple spaces", () => {
+        expect(capitalizeWords("hello   world")).toBe("Hello   World");
+    });
+});
+
+
+describe("filterActiveUsers", () => {
+    test("filters only active users", () => {
+        const users = [
+            { name: "Alice", isActive: true },
+            { name: "Bob", isActive: false }
+        ];
+
+        expect(filterActiveUsers(users)).toEqual([
+            { name: "Alice", isActive: true }
+        ]);
+    });
+
+    test("returns empty array if no active users", () => {
+        const users = [
+            { name: "Bob", isActive: false }
+        ];
+
+        expect(filterActiveUsers(users)).toEqual([]);
+    });
+
+    test("returns empty array if input is empty", () => {
+        expect(filterActiveUsers([])).toEqual([]);
+    });
+});
+
+
+describe("logAction", () => {
+    test("returns correct log message format", () => {
+        const result = logAction("login", "Alice");
+
+        expect(result).toContain("User Alice performed login at");
+    });
+
+    test("includes action in log", () => {
+        const result = logAction("logout", "Bob");
+
+        expect(result).toContain("logout");
+    });
+
+    test("returns string", () => {
+        expect(typeof logAction("login", "Alice")).toBe("string");
+    });
+});
