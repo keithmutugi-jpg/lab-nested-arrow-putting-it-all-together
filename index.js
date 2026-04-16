@@ -22,9 +22,6 @@ function createLoginTracker(userInfo) {
   };
 }
 
-module.exports = {
-  ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
-};
 function capitalizeWords(input) {
     if (!input) return "";
 
@@ -46,6 +43,7 @@ function logAction(action, username) {
 }
 
 module.exports = {
+    createLoginTracker,
     capitalizeWords,
     filterActiveUsers,
     logAction
